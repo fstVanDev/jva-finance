@@ -1,0 +1,100 @@
+.dropdown {
+   height: 35px;
+   position: relative;
+   margin: 0 auto;
+   width: auto;
+   background: #fff;
+   margin-top: 9px;
+}
+
+.dropdown__container {
+   display: flex;
+   width: 100%;
+   height: 100%;
+   align-content: center;
+}
+
+.dropdown__text {
+   display: flex;
+   cursor: pointer;
+   height: auto;
+   align-items: center;
+   font-family: Urbanist;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 18px;
+   line-height: 21px;
+
+   color: #9F9FB8;
+}
+
+/* .dropdown__text:hover {
+    color: white;
+    background: #EAEDF8;
+} */
+
+
+
+.dropdown.active .dropdown__text:after {
+   margin-top: 1px;
+
+}
+
+.dropdown__items {
+   border: none;
+   margin-top: 5px;
+   background-color: #fff;
+   position: relative;
+   visibility: hidden;
+   opacity: 0;
+   height: 30px;
+   z-index: 99;
+   border: none;
+}
+
+
+.dropdown.active .dropdown__items {
+   visibility: visible;
+   border-radius: 10px;
+   height: auto;
+   max-height: 290px;
+   opacity: 1;
+   transition: max-height 0.4s, opacity .5s, visibility 2s ease;
+}
+
+.dropdown__item {
+   cursor: pointer;
+   font-family: 'Urbanist';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 18px;
+   color: #9F9FB8;
+   padding: 10px 18px;
+}
+
+
+
+.dropdown__item:hover:first-child {
+   border-bottom: none;
+}
+
+.dropdown__item:hover {
+   color: white;
+   background: #FB075F;
+   border-radius: 5px;
+}
+
+.dropdown__language__icon {
+   margin-right: 10px;
+}
+
+@media (min-width: 375px) and (max-width: 992px) {
+   .dropdown {
+      width: 80px;
+   }
+
+   .dropdown__items {
+      top: -60px;
+      background-color: grey;
+   }
+}

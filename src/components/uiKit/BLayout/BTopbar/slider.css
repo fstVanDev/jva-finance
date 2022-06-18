@@ -1,0 +1,10 @@
+.bm-burger-button {
+    display: none;
+}
+
+@media (min-width: 375px) and (max-width: 992px) {
+    .bm-burger-button {
+        display: block;
+    }
+
+}
