@@ -59,6 +59,7 @@ export interface FarmConfig {
     earnLabel: string
     endBlock: number
   }
+  harvestLockup: number
 }
 
 export interface CoinPriceConfig {

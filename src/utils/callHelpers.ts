@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
+import { getParsedCommandLineOfConfigFile } from 'typescript'
+import { getReferralCode } from 'utils/referrals'
 
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods
@@ -9,7 +11,7 @@ export const approve = async (lpContract, masterChefContract, account) => {
 
 export const stake = async (masterChefContract, pid, amount, account) => {
   return masterChefContract.methods
-    .deposit(pid, new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+    .deposit(pid, new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(), getReferralCode())
     .send({ from: account })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
@@ -35,6 +37,7 @@ export const sousStakeBnb = async (sousChefContract, amount, account) => {
 }
 
 export const unstake = async (masterChefContract, pid, amount, account) => {
+  console.log('unstake')
   return masterChefContract.methods
     .withdraw(pid, new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
     .send({ from: account })
@@ -80,7 +83,7 @@ export const sousEmegencyUnstake = async (sousChefContract, amount, account) => 
 
 export const harvest = async (masterChefContract, pid, account) => {
   return masterChefContract.methods
-    .deposit(pid, '0')
+    .deposit(pid, '0', getReferralCode())
     .send({ from: account })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
@@ -106,10 +109,28 @@ export const soushHarvestBnb = async (sousChefContract, account) => {
 }
 
 export const addReferrer = async (referralStorageContract, referee, account) => {
-   return referralStorageContract.methods
-      .addReferrer(referee, account, 1)
-      .send({ from: account })
-      .on('transactionHash', (tx) => {
-         return tx.transactionHash
-      })
+  return referralStorageContract.methods
+    .addReferrer(referee, account, 1)
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
+export const buy = async (presaleContract, amount, account) => {
+  return presaleContract.methods
+    .buy(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(), account)
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
+export const claim = async (presaleContract, account) => {
+  return presaleContract.methods
+    .claimTokens(account)
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
 }
